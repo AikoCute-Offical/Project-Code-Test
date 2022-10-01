@@ -27,18 +27,20 @@ func dowfile() {
 	if err != nil {
 		fmt.Println(err)
 	}
-}
 
-// hiển thị thưc thời gian tải file
-func progress() {
-	for {
-		fmt.Print(".")
-	}
+	//hiển thị dung lượng file
+	fmt.Println("File size:", resp.ContentLength)
+
+	//hiển thị tên file
+	fmt.Println("File name:", file.Name())
+
+	// thông báo khi tải xong
+	fmt.Println("Download finished")
+
 }
 
 func main() {
 	go dowfile()
-	go progress()
 	var input string
 	fmt.Scanln(&input)
 }
