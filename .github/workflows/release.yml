@@ -128,7 +128,7 @@ jobs:
       - name: Build Win10-TLSC-AutoDown
         run: |
           mkdir -p build_assets
-          go build -v -o build_assets/Win10-TLSC-AutoDown -trimpath -ldflags "-s -w -buildid=" ./main
+          go build -v -o build_assets/Win10-TLSC-AutoDown -trimpath -ldflags "-s -w -buildid=" .
     
       - name: Build Mips softfloat Win10-TLSC-AutoDown
         if: matrix.goarch == 'mips' || matrix.goarch == 'mipsle'
