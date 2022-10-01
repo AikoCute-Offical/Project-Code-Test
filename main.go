@@ -28,8 +28,7 @@ func dowfile() {
 		fmt.Println(err)
 	}
 
-	// đóng chương trình sau khi tải xong
-	os.Exit(0)
+	fmt.Println("Downloaded a file")
 }
 
 func main() {
