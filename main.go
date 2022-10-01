@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io"
 	"net/http"
@@ -51,7 +52,26 @@ func downloadFile(url string) error {
 	return nil
 }
 
+var (
+	version  = "0.0.1"
+	codename = "Auto Download"
+	intro    = "Tool by Aiko"
+)
+
+var (
+	printVersion = flag.Bool("version", false, "show version")
+)
+
+func showVersion() {
+	fmt.Printf("%s %s (%s) \n", codename, version, intro)
+}
+
 func main() {
+	flag.Parse()
+	showVersion()
+	if *printVersion {
+		return
+	}
 	fileExists(namefile)
 	// hiển thị đang tải và tên file (namefile)
 	fmt.Println("Downloading", namefile, "...")
