@@ -7,32 +7,58 @@ import (
 	"os"
 )
 
-func dowfile() {
-	// tạo file mới
-	file, err := os.Create("Win 10 LTSC by Aiko.iso")
-	if err != nil {
-		fmt.Println(err)
-	}
-	defer file.Close()
+var namefile = "Win 10 LTSC by Aiko.iso"
 
-	// tải file
-	resp, err := http.Get("https://go.microsoft.com/fwlink/p/?LinkID=2195404&clcid=0x409&culture=en-us&country=US")
+// check file exist if file Win 10 LTSC by Aiko.iso exist then print file exist and exit
+func fileExists(filename string) {
+	if _, err := os.Stat(filename); err == nil {
+		fmt.Println("File exist")
+		os.Exit(0)
+	}
+}
+
+// dowload file from link
+func downloadFile(url string) error {
+	// Get the data
+	resp, err := http.Get(url)
 	if err != nil {
-		fmt.Println(err)
+		return err
 	}
 	defer resp.Body.Close()
 
-	// đọc file
-	_, err = io.Copy(file, resp.Body)
+	// Create the file
+	out, err := os.Create(namefile)
 	if err != nil {
-		fmt.Println(err)
+		return err
 	}
+	defer out.Close()
 
+	// hiện thị đã tải được bao nhiêu % file
+	var downloaded int64
+	var percent int
+	for {
+		n, err := io.CopyN(out, resp.Body, 1024*1024)
+		downloaded += n
+		percent = int(float64(downloaded) / float64(resp.ContentLength) * 100)
+		fmt.Printf("Downloaded %d%% \r", percent)
+		if err != nil {
+			if err == io.EOF {
+				break
+			}
+			return err
+		}
+	}
+	return nil
 }
 
-// hiển thị thông báo khi tải xong
 func main() {
-	fmt.Println("Downloading...")
-	dowfile()
-	fmt.Println("Download complete!")
+	fileExists(namefile)
+	// hiển thị đang tải và tên file (namefile)
+	fmt.Println("Downloading", namefile, "...")
+	url := "https://go.microsoft.com/fwlink/p/?LinkID=2195404&clcid=0x409&culture=en-us&country=US"
+	err := downloadFile(url)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("File downloaded")
 }
