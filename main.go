@@ -28,19 +28,10 @@ func dowfile() {
 		fmt.Println(err)
 	}
 
-	//hiển thị dung lượng file
-	fmt.Println("File size:", resp.ContentLength)
-
-	//hiển thị tên file
-	fmt.Println("File name:", file.Name())
-
-	// thông báo khi tải xong
-	fmt.Println("Download finished")
-
+	// đóng chương trình sau khi tải xong
+	os.Exit(0)
 }
 
 func main() {
 	go dowfile()
-	var input string
-	fmt.Scanln(&input)
 }
