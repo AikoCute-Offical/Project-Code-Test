@@ -9,10 +9,12 @@ import (
 
 var namefile = "Win 10 LTSC by Aiko.iso"
 
-// check file exist if file Win 10 LTSC by Aiko.iso exist then print file exist and exit
+// check file exist or not
 func fileExists(filename string) {
 	if _, err := os.Stat(filename); err == nil {
-		fmt.Println("File exist")
+		fmt.Println("File", filename, "exists")
+		fmt.Println("Press enter to exit")
+		fmt.Scanln()
 		os.Exit(0)
 	}
 }
