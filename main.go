@@ -28,9 +28,11 @@ func dowfile() {
 		fmt.Println(err)
 	}
 
-	fmt.Println("Downloaded a file")
 }
 
+// hiển thị thông báo khi tải xong
 func main() {
-	go dowfile()
+	fmt.Println("Downloading...")
+	dowfile()
+	fmt.Println("Download complete!")
 }
