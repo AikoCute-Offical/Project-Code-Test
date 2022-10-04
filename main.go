@@ -1,4 +1,4 @@
-package main
+package phu
 
 import (
 	"fmt"
@@ -28,7 +28,7 @@ func downloadFile(url string) error {
 	}
 	defer resp.Body.Close()
 
-	// Create the file
+	// choose address to save file on OS
 	out, err := os.Create(namefile)
 	if err != nil {
 		return err
@@ -64,3 +64,7 @@ func main() {
 	}
 	fmt.Println("File downloaded")
 }
+
+// lưu file tại chỗ
+
+// Language: go
